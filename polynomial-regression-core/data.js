@@ -48,3 +48,24 @@ export function generateData(numPoints, coeff, sigma = 0.04) {
     };
   })
 }
+
+export function generateDataManual(numPoints, coeff, sigma = 0.04) {
+  const { a, b, c, d } = coeff;
+  let xs = []
+  for (let i = 0; i < numPoints; i++) {
+    xs.push(Math.random());
+  }
+
+  xs = xs.sort();
+  let ys = xs.map(x => (a * (x ** 3)) + (b * (x ** 2)) + (c * x) + d);
+  
+  const yMin = Math.min(...ys);
+  const yMax = Math.max(...ys);
+  const yRange = yMax - yMin;
+  ys = ys.map(y => (y - yMin) / yRange);
+  
+  return {
+    xs,
+    ys
+  }
+}
